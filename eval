@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+
+from grammar import Grammar
+import sys
+import fileinput
+
+parser = Grammar()
+
+if (len(sys.argv) > 1):
+    print (parser.parse(" ".join(sys.argv[1:])))
+else:
+    for line in fileinput.input():
+        print (parser.parse(line))
+
+        
+    

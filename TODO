@@ -1,0 +1,10 @@
+
+o Distinguish between ints and floats.
+  Right now it seems to compute everything in floats.
+
+o Add named functions like sin() and int()
+
+o Stream mode:  eval 'x*2 + y' is a filter that turns a two-column
+  stdin into a one-column stdout.  Variable names are assigned to columns
+  in alphabetical order; eval 'c1*2 + c2' is equivalent.
+

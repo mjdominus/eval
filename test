@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+import unittest
+from grammar import Grammar
+
+class TestExprs(unittest.TestCase):
+    def setUp(self):
+        self.parser = Grammar()
+
+    def tryit(self, expr, x_res):
+        self.assertEqual(self.parser.parse(expr), x_res)
+
+    def closeEnough(self, expr, x_res):
+        self.assertAlmostEqual(self.parser.parse(expr), x_res, 7)
+        
+    def test_spaces(self):
+        self.tryit("1+1", 2)
+        self.tryit("1 + 1", 2)
+        self.tryit("  1 +1  ", 2)
+        self.tryit(" 1+   1", 2)
+        
+    def test_sum(self):
+        self.tryit("1+1", 2)
+
+    def test_precedence(self):
+        self.tryit("3+5*4", 23)
+        self.tryit("3*5+4", 19)
+        self.tryit("3*(5+4)", 27)
+
+    def test_assoc(self):
+        self.tryit("8-(4-3)", 7)
+        self.tryit("(8-4)-3", 1)
+        self.tryit("100/5/2", 10)
+        self.tryit("8-4-3", 1)
+        
+    def test_paren(self):
+        self.tryit("3", 3)
+        self.tryit("(3)", 3)
+        self.tryit("((3))", 3)
+
+    def test_opsym(self):
+        self.tryit("8*4", 32)
+        self.tryit("8×4", 32)
+        self.tryit("8/4", 2)
+        self.tryit("8÷4", 2)
+
+    def test_pi(self):
+        self.closeEnough("π*2", 6.28318)
+        self.closeEnough("pi*2", 6.28318)
+
+    def test_pow(self):
+        self.tryit("2^4", 16)
+        self.tryit("2^2^3", 256)
+        self.tryit("2^(2^3)", 256)
+        self.tryit("((2^2)^3)", 64)
+        
+if __name__ == '__main__':
+   unittest.main()
+
