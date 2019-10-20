@@ -15,7 +15,9 @@ class Grammar():
 
 start = expression $ ;
 
-expression = left:expression op:'+' right:term
+expression = varname:varname op:'='  val:expression
+           | varname:varname op:':=:' val:expression
+           | left:expression op:'+' right:term
            | left:expression op:'-' right:term
            | term
 ;
@@ -33,14 +35,15 @@ factor =
     | left:base '^' right:factor
     | base;
 
-base = number | compound_expression;
+base = number | varval | compound_expression;
 
 compound_expression = '(' expression ')' ;
 
 number = /\d+/ | pi;
 pi = 'π' | 'pi';
 
-var = /[A-Za-z]\w*/ ;
+varval = varname ;
+varname = /[A-Za-z]\w*/ ;
 
 '''
 

@@ -13,6 +13,9 @@ else:
     pass
 
 class Semantics:
+  def __init__(self):
+    self.vars = {}
+
   def expression(self, ast):
     debug("** expression: ", ast)
     if isinstance(ast, AST):
@@ -20,6 +23,13 @@ class Semantics:
         return ast.left + ast.right
       elif ast.op == '-':
         return ast.left - ast.right
+      elif ast.op == '=':
+        self.set_var(ast.varname, ast.val)
+        return ast.val
+      elif ast.op == ':=:':
+        old = self.get_var(ast.varname)
+        self.set_var(ast.varname, ast.val)
+        return old
       else:
         raise Exception("WTF", ast.op)
     else:
@@ -52,7 +62,12 @@ class Semantics:
   def pi(self, ast):
     return 3.14159
 
-  
-        
+  def varval(self, name):
+    return self.get_var(name)
 
-  
+  def get_var(self, varname):
+    return self.vars[varname]
+
+  def set_var(self, var, val):
+    assert isinstance(var, str)
+    self.vars[var] = val
