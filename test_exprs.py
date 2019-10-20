@@ -14,13 +14,16 @@ class TestParser(Grammar):
 def parser():
      return TestParser()
 
-def test_wat(parser):
-    assert isinstance(parser, Grammar)
-    assert isinstance(parser, TestParser)
-
 def test_assignment(parser):
     parser.tryit("x = 17", 17)
     parser.tryit("x", 17)
+    parser.tryit("x = y = 3", 3)
+    parser.tryit("x", 3)
+    parser.tryit("y", 3)
+    parser.tryit("y = 4", 4)
+    parser.tryit("x :=: y :=: 5", 3)
+    parser.tryit("x", 4)
+    parser.tryit("y", 5)
 
 def test_spaces(parser):
     parser.tryit("1+1", 2)
