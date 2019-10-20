@@ -1,7 +1,9 @@
 
+
+import math
 import os
-from tatsu.ast import AST
 from pprint import pprint
+from tatsu.ast import AST
 
 def s(x): str(x)
 
@@ -14,7 +16,7 @@ else:
 
 class Semantics:
   def __init__(self):
-    self.vars = {}
+    self.vars = {"sqrt": math.sqrt}
 
   def expression(self, ast):
     debug("** expression: ", ast)
@@ -49,6 +51,9 @@ class Semantics:
 
   def compound_expression(self, ast):
     return ast[1]
+
+  def funcall(self, ast):
+    return ast[0](ast[2])
 
   def factor(self, ast):
     if isinstance(ast, AST):

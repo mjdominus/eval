@@ -65,3 +65,7 @@ def test_pow(parser):
     parser.tryit("2^2^3", 256)
     parser.tryit("2^(2^3)", 256)
     parser.tryit("((2^2)^3)", 64)
+
+def test_funcall(parser):
+    parser.tryit("sqrt(4)", 2)
+    parser.tryit("sqrt(sqrt(81))", 3)

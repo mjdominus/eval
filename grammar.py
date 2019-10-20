@@ -35,9 +35,11 @@ factor =
     | left:base '^' right:factor
     | base;
 
-base = number | varval | compound_expression;
+base = number | funcall | varval | compound_expression;
 
 compound_expression = '(' expression ')' ;
+
+funcall = varval '(' expression ')' ;
 
 number = /\d+/ | pi;
 pi = 'π' | 'pi';
