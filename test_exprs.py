@@ -15,18 +15,22 @@ class TestParser(Grammar):
     def done_testing(self):
         self.done = True
 
-    def ok(self, *msgs, ok=True, todo=False):
+    def ok(self, *msgs, ok=True, todo=None):
         self.count += 1
         msgs = list(msgs)
-        if todo:
-            msgs.append(" TODO")
 
         if len(msgs) > 0:
-            msg = "# " + "".join(msgs)
+            msg = "- " + "".join(msgs)
         else:
             msg = ""
 
-        print("ok" if ok or todo else "not ok", self.count, msg, file=self.fh)
+        if todo:
+            if todo is True:
+                msg += " # TODO"
+            else:
+                msg += " # TODO " + str(todo)
+
+        print("ok" if ok else "not ok", self.count, msg, file=self.fh)
 
     def nok(self, *args, **kwargs):
         self.ok(*args, **kwargs, ok=False)
@@ -88,7 +92,7 @@ def test_constants(parser):
     parser.typeis("2", int)
     parser.typeis("2.0", float)
     parser.typeis("π", float)
-    parser.typeis(".3", float, todo=True)
+    parser.typeis(".3", float, todo="leading integer required for now")
 
 def test_spaces(parser):
     parser.eval("1+1", 2)
