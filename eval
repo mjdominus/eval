@@ -1,8 +1,25 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
+import argparse
 from grammar import Grammar
 import sys
 import fileinput
+
+def argparser():
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument('--stream', '-s', action='store_true')
+    parser.add_argument('--interactive', '-I', action='store_true')
+    parser.add_argument('words', nargs='*')
+    return parser
+
+args = argparser().parse_args()
+
+# Doesn't work yet
+if args.stream:
+    expression = "".join(args.words)
+    for line in fileinput.input():
+        print (parser.parse(line))
+
 
 parser = Grammar()
 
@@ -11,6 +28,3 @@ if (len(sys.argv) > 1):
 else:
     for line in fileinput.input():
         print (parser.parse(line))
-
-        
-    
