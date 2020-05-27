@@ -39,7 +39,8 @@ class TestParser(Grammar):
         try:
             res = self.parse(expr)
         except Exception as e:
-            self.nok(f"Compile '{expr}' failed ({e})", **kwargs)
+            self.nok(f"Compile '{expr}' failed:", **kwargs)
+            self.diag(str(type(e)), str(e))
             return
 
         self._is(x_res, res, expr, **kwargs)
@@ -53,15 +54,14 @@ class TestParser(Grammar):
 
     def diag(self, *msgs):
         for msg in msgs:
-            print("#", msg, file=self.fh)
+            print("#", msg.replace("\n", "\n# "), file=self.fh)
 
     def typeis(self, expr, x_type, **kwargs):
         try:
             a_type = type(self.parse(expr))
         except Exception as e:
-            msg = str(e)
-            msg = msg.replace("\n", "\\n")
-            self.nok(f"Compile '{expr}' failed ({msg})", **kwargs)
+            self.nok(f"Compile '{expr}' failed:", **kwargs)
+            self.diag(str(type(e)), str(e))
             return
         self._is(x_type, a_type, f"type of '{expr}'", **kwargs)
 
