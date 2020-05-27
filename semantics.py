@@ -61,8 +61,29 @@ class Semantics:
     else:
       return ast
 
-  def number(self, ast):
-    return float(ast)
+  # def digits(self, ast):
+  #   from sys import stderr
+  #   print("digits", ast, f"({type(ast)})", file=stderr)
+  #   return float(ast)
+
+  def sign(self, ast):
+    if ast is None or ast == '+':
+      return 1
+    elif ast == '-':
+      return -1
+    else:
+      raise Exception(f"Unknown numeric sign '{ast}'")
+
+  def signed_digits(self, ast):
+    sign, digits = ast
+    return sign * int(digits)
+
+  def integer(self, digits):
+    return int(digits)
+
+  def fp(self, ast):
+    # Yuck
+    return float(str(ast.integer_part) + "." + ast.fraction_part)
 
   def pi(self, ast):
     return 3.14159

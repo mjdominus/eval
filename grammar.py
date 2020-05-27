@@ -41,8 +41,13 @@ compound_expression = '(' expression ')' ;
 
 funcall = varval '(' expression ')' ;
 
-number = /\d+/ | pi;
+number = fp | integer | pi;
+integer = signed_digits ;
+signed_digits = sign digits;
+sign = '-' | '+' | ();
+fp = integer_part:signed_digits '.' fraction_part:digits;
 pi = 'π' | 'pi';
+digits = /\d+/;
 
 varval = varname ;
 varname = /[A-Za-z]\w*/ ;
