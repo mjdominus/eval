@@ -42,7 +42,7 @@ factor =
 
 base = number | funcall | varval | compound_expression;
 
-compound_expression = '(' expression ')' ;
+compound_expression = '(' @:expression ')' ;
 
 funcall = varval '('   ','.{expression}+   ')' ;
 

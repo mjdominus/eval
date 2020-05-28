@@ -53,9 +53,6 @@ class Semantics:
     else:
       return ast
 
-  def compound_expression(self, ast):
-    return ast[1]
-
   def funcall(self, ast):
     args = ast[2]
     return ast[0](*args)
