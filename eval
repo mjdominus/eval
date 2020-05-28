@@ -30,5 +30,6 @@ else:
         try:
             res = parser.parse(line)
             print(res)
+            parser.set_it(res)
         except Exception as e:
             print("ERROR:", e)

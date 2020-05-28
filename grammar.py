@@ -10,6 +10,9 @@ class Grammar():
     def __init__(self, semantics=Semantics()):
         self.semantics = semantics
 
+    def set_it(self, v):
+        self.semantics.set_var("it", v)
+
     grammar = r'''
 @@grammar::EVAL
 
