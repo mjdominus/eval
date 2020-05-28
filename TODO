@@ -1,5 +1,5 @@
 
-o Distinguish between ints and floats.
+* Distinguish between ints and floats.
   Right now it seems to compute everything in floats.
 
 o Add named functions like sin() and int()
