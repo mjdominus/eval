@@ -1,9 +1,9 @@
 
 
-import math
 import os
 from pprint import pprint
 from tatsu.ast import AST
+import eval_builtins
 
 def s(x): str(x)
 
@@ -16,7 +16,7 @@ else:
 
 class Semantics:
   def __init__(self):
-    self.vars = {"sqrt": math.sqrt}
+    self.vars = eval_builtins.builtin_funcs
 
   def expression(self, ast):
     debug("** expression: ", ast)
