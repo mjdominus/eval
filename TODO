@@ -8,4 +8,14 @@ o Stream mode:  eval 'x*2 + y' is a filter that turns a two-column
   stdin into a one-column stdout.  Variable names are assigned to columns
   in alphabetical order; eval 'c1*2 + c2' is equivalent.
 
+  o Tricky part of this: we will need to separate parsing and evaluation
+
 o Multi-argument functions
+
+o Previous result always stored in 'it'
+
+o Better exception handling
+
+o Modularize app for testing
+
+* Handle division by zero
