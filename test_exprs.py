@@ -77,7 +77,7 @@ class TestParser(Grammar):
             return
         self._is(x_type, a_type, f"type of '{expr}'", **kwargs)
 
-    def closeEnough(self, expr, x_res):
+    def closeEnough(self, expr, x_res, **kwargs):
         try:
             res = self.parse(expr)
         except Exception as e:
