@@ -103,3 +103,4 @@ ENV/
 
 # Visual Studio metadata
 .vscode/
+/.test
