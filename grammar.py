@@ -44,7 +44,7 @@ base = number | funcall | varval | compound_expression;
 
 compound_expression = '(' expression ')' ;
 
-funcall = varval '(' expression ')' ;
+funcall = varval '('   ','.{expression}+   ')' ;
 
 number = fp | integer | pi;
 integer = signed_digits ;

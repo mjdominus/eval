@@ -166,7 +166,7 @@ def test_funcall(parser):
     parser.eval("sqrt(4)", 2)
     parser.eval("sqrt(sqrt(81))", 3)
     parser.closeEnough("sin(π/2)", 1.0)
-    parser.eval("gcd(24, 84)", 12, todo="multi-argument functions not supported")
+    parser.eval("gcd(24, 84)", 12)
 
 test_assignment(parser)
 test_constants(parser)

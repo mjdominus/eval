@@ -57,7 +57,8 @@ class Semantics:
     return ast[1]
 
   def funcall(self, ast):
-    return ast[0](ast[2])
+    args = ast[2]
+    return ast[0](*args)
 
   def factor(self, ast):
     if isinstance(ast, AST):

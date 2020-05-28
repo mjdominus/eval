@@ -10,9 +10,9 @@ o Stream mode:  eval 'x*2 + y' is a filter that turns a two-column
 
   o Tricky part of this: we will need to separate parsing and evaluation
 
-o Multi-argument functions
+* Multi-argument functions
 
-o Previous result always stored in 'it'
+* Previous result always stored in 'it'
 
 o Better exception handling
 
