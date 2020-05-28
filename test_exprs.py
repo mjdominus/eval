@@ -78,7 +78,15 @@ class TestParser(Grammar):
         self._is(x_type, a_type, f"type of '{expr}'", **kwargs)
 
     def closeEnough(self, expr, x_res):
-        assert math.isclose(self.parse(expr), x_res)
+        try:
+            res = self.parse(expr)
+        except Exception as e:
+            self.nok(f"Compile '{expr}' failed:", **kwargs)
+            self.diag(str(type(e)), str(e))
+            return
+
+        ok=math.isclose(res, x_res)
+        self.ok(f"{expr}: {res} close enough to {x_res}", ok=ok)
 
     def exit(self):
         self.done_testing()
@@ -157,6 +165,8 @@ def test_pow(parser):
 def test_funcall(parser):
     parser.eval("sqrt(4)", 2)
     parser.eval("sqrt(sqrt(81))", 3)
+    parser.closeEnough("sin(π/2)", 1.0)
+    parser.eval("gcd(24, 84)", 12, todo="multi-argument functions not supported")
 
 test_assignment(parser)
 test_constants(parser)
