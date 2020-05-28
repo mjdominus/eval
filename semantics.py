@@ -1,5 +1,6 @@
 
 
+import math
 import os
 from pprint import pprint
 from tatsu.ast import AST
@@ -85,7 +86,15 @@ class Semantics:
 
   def fp(self, ast):
     # Yuck
-    return float(str(ast.integer_part) + "." + ast.fraction_part)
+    i = 0 if ast.integer_part is None else ast.integer_part
+    if ast.fraction_part is None:
+      f = 0
+    else:
+      f = int(ast.fraction_part) * math.pow(10, -len(ast.fraction_part))
+    z = float(i+f)
+    if ast.e_part is not None:
+      z *= math.pow(10, ast.e_part)
+    return z
 
   def pi(self, ast):
     return 3.14159

@@ -113,13 +113,33 @@ def test_assignment(parser):
     parser.eval("x :=: y :=: 5", 3)
     parser.eval("x", 4)
     parser.eval("y", 5)
-    parser.eval("2", 2)
 
 def test_constants(parser):
     parser.typeis("2", int)
-    parser.typeis("2.0", float)
+    parser.eval("2", 2)
+
     parser.typeis("π", float)
-    parser.typeis(".3", float, todo="leading integer required for now")
+    parser.closeEnough("π*2", 6.28318)
+    parser.typeis("pi", float)
+    parser.closeEnough("pi*2", 6.28318)
+
+    test_floats(parser)
+
+def test_floats(parser):
+    parser.typeis("2.0", float)
+    parser.eval("2.0", 2)
+    parser.typeis(".3", float)
+    parser.closeEnough(".3", .3)
+    parser.typeis("4.", float)
+    parser.closeEnough("4.", 4)
+    parser.typeis("4.3e2", float)
+    parser.closeEnough("4.3e2", 430)
+    parser.typeis("4.3e+2", float)
+    parser.closeEnough("4.3e+2", 430)
+    parser.typeis("4.3e+02", float)
+    parser.closeEnough("4.3e+02", 430)
+    parser.typeis("4.3e-2", float)
+    parser.closeEnough("4.3e-2", 0.043)
 
 def test_spaces(parser):
     parser.eval("1+1", 2)
@@ -152,10 +172,6 @@ def test_opsym(parser):
     parser.eval("8/4", 2)
     parser.eval("8÷4", 2)
 
-def test_pi(parser):
-    parser.closeEnough("π*2", 6.28318)
-    parser.closeEnough("pi*2", 6.28318)
-
 def test_pow(parser):
     parser.eval("2^4", 16)
     parser.eval("2^2^3", 256)
@@ -176,7 +192,6 @@ test_precedence(parser)
 test_assoc(parser)
 test_paren(parser)
 test_opsym(parser)
-test_pi(parser)
 test_pow(parser)
 test_funcall(parser)
 

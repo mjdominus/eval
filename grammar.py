@@ -50,8 +50,9 @@ number = fp | integer | pi;
 integer = signed_digits ;
 signed_digits = sign digits;
 sign = '-' | '+' | ();
-fp = integer_part:signed_digits '.' fraction_part:digits;
 pi = 'π' | 'pi';
+fp = [ integer_part:signed_digits ] '.' [ fraction_part:digits ] [ e_part:e_notation ];
+e_notation = /[eE]/ @:signed_digits ;  # ('E' | 'e') does not work, because of nameguard
 digits = /\d+/;
 
 varval = varname ;
