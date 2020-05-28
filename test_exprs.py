@@ -10,6 +10,9 @@ class TestParser(Grammar):
         self.count = 0
         self.fh = sys.stdout
         self.done = False
+        self.happy = True
+        self.results = { "ok": 0, "nok": 0, "todo": 0, "total": 0 }
+
         super().__init__(*args, **kwargs)
 
     def done_testing(self):
@@ -31,9 +34,18 @@ class TestParser(Grammar):
                 msg += " # TODO " + str(todo)
 
         print("ok" if ok else "not ok", self.count, msg, file=self.fh)
+        self.count_result(ok=ok, todo=todo)
+        self.happy = self.happy and (ok or todo)
 
     def nok(self, *args, **kwargs):
         self.ok(*args, **kwargs, ok=False)
+
+    def count_result(self, ok, todo):
+        self.results["total"] += 1
+        if todo:
+            self.results["todo"] += 1
+        else:
+            self.results["ok" if ok else "nok"] += 1
 
     def eval(self, expr, x_res, **kwargs):
         try:
@@ -67,6 +79,13 @@ class TestParser(Grammar):
 
     def closeEnough(self, expr, x_res):
         assert math.isclose(self.parse(expr), x_res)
+
+    def exit(self):
+        self.done_testing()
+        res = self.results
+        self.diag("-- done --", f"{res['total']} tests", f"{res['ok']} passed", f"{res['nok']} failed", f"{res['todo']} todo")
+        self.diag("* success *" if self.happy else "> failure <")
+        exit(0 if self.happy else 1)
 
     def __del__(self):
         if self.done:
@@ -151,4 +170,4 @@ test_pi(parser)
 test_pow(parser)
 test_funcall(parser)
 
-parser.done_testing()
+parser.exit()
