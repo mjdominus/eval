@@ -44,6 +44,10 @@ class Semantics:
         return ast.left * ast.right
       elif ast.op == '/' or ast.op == '÷':
         return ast.left / ast.right
+      elif ast.op == '%':
+        return ast.left % ast.right
+      elif ast.op == '//':
+        return ast.left // ast.right
       else:
         raise Exception("WTF", ast.op)
     else:

@@ -28,8 +28,10 @@ expression = varname:varname op:'='  val:expression
 term =
          left:term op:'*' right:factor
        | left:term op:'×' right:factor
+       | left:term op:'//' right:factor
        | left:term op:'/' right:factor
        | left:term op:'÷' right:factor
+       | left:term op:'%' right:factor
        | factor
 ;
 
