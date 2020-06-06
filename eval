@@ -16,7 +16,6 @@ args = argparser().parse_args()
 
 # Doesn't work yet
 if args.stream:
-    expression = "".join(args.words)
     for line in fileinput.input():
         print (parser.parse(line))
 

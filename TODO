@@ -10,6 +10,12 @@ o Stream mode:  eval 'x*2 + y' is a filter that turns a two-column
 
   o Tricky part of this: we will need to separate parsing and evaluation
 
+    Or maybe not?  I thought I would have to change the parser to
+    build an AST and then write an evaluator.  This might be a good
+    approach in general, but I can probably get out of it for now:
+    just re-parse and re-evaluate the base expression, for each line,
+    after rebinding the names in the environment.
+
 * Multi-argument functions
 
 * Previous result always stored in 'it'
